@@ -1,0 +1,15 @@
+<ion-view view-title="Places">
+    <ion-content>
+    <div>
+    	Lat : {{geolocation.latitude}} , Long : {{geolocation.longitude}}
+    </div>
+        <ion-list>
+            <div class="item item-button-right" ng-repeat="place in places" href="#/app/places/{{place.id}}">
+                {{place.name}}
+                <button class="button button-positive">
+                    <i class="icon ion-ios-telephone"></i>
+                </button>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>
