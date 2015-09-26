@@ -29,7 +29,7 @@ function PlacesCtrl($scope, $ionicLoading, $q, $timeout, apiService) {
                     longitude: position.coords.longitude,
                 };
                 positionDeferred.resolve('geolocation ready');
-            }, function() {
+            }, function(response) {
                 alert('geolocation error');
                 console.log(response);
             })
