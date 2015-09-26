@@ -1,14 +1,24 @@
-function ApiService($http) {
+function ApiService($http, $cordovaOauth) {
     var BASE_URL = "http://localhost:8100";
+    var FACEBOOK_CLIENT_ID = 1608052562789205;
+
     var a = {
-        login: login,
+        facebookLogin: facebookLogin,
         logout: logout,
         getPlaces: getPlaces
     }
     return a;
 
-    function login() {
-        console.log('logged in');
+    function facebookLogin() {
+        $cordovaOauth.facebook(FACEBOOK_CLIENT_ID, ["user_birthday", "user_friends", "user_about_me", "user_status", "user_posts", "email", "public_profile"]).then(function(result) {
+            // results
+            console.log('yay');
+            console.log(result);
+        }, function(error) {
+            // error
+            alert('damn nigga');
+        });
+        // console.log('logged in');
     }
 
     function logout() {
