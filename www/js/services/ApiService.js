@@ -1,6 +1,8 @@
-function ApiService($rootScope, $http, $cordovaOauth, $localStorage) {
-    var BASE_URL = "http://localhost:8100";
-    // var BASE_URL = "http://test-387dcco7.cloudapp.net/v1/ola";
+function ApiService($rootScope, $http, $cordovaOauth) {
+    // var BASE_URL = "http://localhost:8100";
+    //http://test-387dcco7.cloudapp.net/v1/ola/get_locations
+    //http://ola-83r8k6yq.cloudapp.net/v1/ola
+    var BASE_URL = "http://test-387dcco7.cloudapp.net/v1/ola";
     var FACEBOOK_CLIENT_ID = 1608052562789205;
     var FACEBOOK_GRAPH_API_URL = "https://graph.facebook.com/v2.4";
 
@@ -9,7 +11,9 @@ function ApiService($rootScope, $http, $cordovaOauth, $localStorage) {
         getUserInfo: getUserInfo,
         logout: logout,
         getPlaces: getPlaces,
-        bookCab: bookCab
+        bookCab: bookCab,
+        getExploreLocations: getExploreLocations,
+        exploreLocations: exploreLocations
     }
     return a;
 
@@ -45,6 +49,23 @@ function ApiService($rootScope, $http, $cordovaOauth, $localStorage) {
     function bookCab(geolocation) {
         return $http.get(BASE_URL + "/book_cab", {
             params: geolocation
+        });
+    }
+
+    function getExploreLocations(geolocation) {
+        return $http.get(BASE_URL + "/explore_locations", {
+            params: geolocation
+        });
+    }
+
+    function exploreLocations(geolocation, placeIds) {
+        var paras = {
+            place_ids : placeIds,
+                latitude : geolocation.latitude,
+                longitude : geolocation.longitude
+        };
+        return $http.get(BASE_URL + "/explore_book_cab", {
+            params: paras
         });
     }
 }
