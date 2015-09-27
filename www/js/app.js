@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('ola', ['ionic','ngSanitize', 'ngCordova', 'angular-timeline', 'ionic.contrib.ui.cards', 'ola.controllers', 'ola.services'])
+angular.module('ola', ['ionic', 'ngSanitize', 'ngCordova', 'angular-timeline', 'ionic.contrib.ui.cards', 'ola.controllers', 'ola.services'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -56,6 +56,33 @@ angular.module('ola', ['ionic','ngSanitize', 'ngCordova', 'angular-timeline', 'i
                 }
             }
         })
-        // if none of the above states are matched, use this as the fallback
+        .state('app.explore', {
+            url: '/explore',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/explore.html',
+                    controller: 'ExploreCtrl'
+                }
+            }
+        })
+        .state('app.profile', {
+            url: '/profile',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/profile.html',
+                    controller: 'ProfileCtrl'
+                }
+            }
+        })
+        .state('app.exploretimeline',{
+            url: '/exploretimeline',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/explore-timeline.html',
+                    controller: 'ExploreTimelineCtrl'
+                }
+            }
+        })
+    // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/places');
 });
