@@ -1,0 +1,30 @@
+<ion-view view-title="Timeline">
+    <ion-content class="padding has-footer">
+        <timeline>
+            <timeline-event ng-repeat="event in events">
+                <timeline-badge class="{{event.badgeClass}}">
+                    <img ng-src="{{event.badgeIcon}}" class="location-pin">
+                </timeline-badge>
+                <timeline-panel class="{{event.badgeClass}}">
+                    <timeline-heading>
+                        <h4 style="">{{event.title}}</h4>
+                    </timeline-heading>
+                    <p>
+                        <input placeholder="add your story" ng-model="event.content" />
+                        <div ng-repeat="pic in event.pictures">
+                        	<img ng-src="{{pic}}" style="max-height : 150px; max-width : 150px">
+                        </div>                        
+                        <a class="button button-small button-positive icon-left ion-camera" ng-click="event.addPicture()">Add a photo</a>
+                        <br />
+                        <a class="button button-small button-block button-outline  button-balanced" ng-if="!isLastOne()" ng-click="event.nextPlace()">Next (<i class="icon ion-model-s"></i> in {{nextEta}} mins)</a>
+                    </p>
+                </timeline-panel>
+            </timeline-event>
+        </timeline>
+    </ion-content>
+    <div class="bar bar-footer bar-positive">
+        <div class="title">
+            <button class="button button-clear" ng-if="isLastOne()" ng-click="postToFacebook()">Post My Story</button>
+        </div>
+    </div>
+</ion-view>

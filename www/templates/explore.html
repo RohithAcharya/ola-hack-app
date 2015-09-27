@@ -1,0 +1,39 @@
+<ion-view view-title="Explore">
+    <ion-content class="content-gray padding has-footer">
+        <div class="list card" ng-repeat="place in places">
+            <div class="item item-avatar">
+                <img ng-src="{{place.icon}}">
+                <h2>{{place.name}}</h2>
+                <p>
+                    <span ng-if="place.distance">
+                        <i class="ion-ios-navigate-outline"></i> {{place.distance}}km,
+                    </span>
+                    <span ng-if="place.travel_time_in_minutes">
+                        <i class="ion-android-time"></i> {{place.travel_time_in_minutes}} mins    
+                    </span>
+                </p>
+                <p class="item-checkbox item-checkbox-right">
+                    <label class="checkbox">
+                        <input ng-model="place.selected" ng-checked="place.selected" type="checkbox">
+                    </label>
+                </p>
+            </div>
+            <div class="item item-body">
+                <!-- <img class="full-image" src="img/place-holder-1.png"> -->
+                <img class="full-image" ng-src="{{place.photo_url || 'img/place-holder-1.png'}}">
+                <p>
+                    <span class="subdued">{{place.description}}</span>
+                    <br />
+                    <strong>Recommended by : </strong>{{place.suggestion_reason.join(", ")}}
+                </p>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer bar-positive">
+        
+        <div class="title">
+            <button class="button button-clear" ng-click="explore()">#OlaExplore</button>
+        </div>
+        
+    </div>
+</ion-view>
