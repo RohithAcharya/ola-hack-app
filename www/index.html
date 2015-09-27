@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * &apos;unsafe-inline&apos;; script-src * &apos;unsafe-inline&apos; &apos;unsafe-eval&apos;">
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="lib/angular-timeline/angular-timeline.css"/>
-    <link rel="stylesheet" href="lib/angular-timeline/angular-timeline-animations.css"/>
+    <link rel="stylesheet" href="lib/angular-timeline/angular-timeline.css">
+    <link rel="stylesheet" href="lib/angular-timeline/angular-timeline-animations.css">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -27,6 +28,9 @@
     <script src="js/controllers/AppCtrl.js"></script>
     <script src="js/controllers/PlacesCtrl.js"></script>
     <script src="js/controllers/TimelineCtrl.js"></script>
+    <script src="js/controllers/ExploreCtrl.js"></script>
+    <script src="js/controllers/ProfileCtrl.js"></script>
+    <script src="js/controllers/ExploreTimelineCtrl.js"></script>
 
     <script src="js/services/ApiService.js"></script>
     <script src="js/services/UserService.js"></script>
