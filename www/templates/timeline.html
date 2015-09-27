@@ -1,5 +1,5 @@
 <ion-view view-title="Timeline">
-    <ion-content class="padding">
+    <ion-content class="padding has-footer">
         <!-- <h1>This is going to be the timeline</h1> -->
         <timeline>
             <timeline-event ng-repeat="event in events">
@@ -7,13 +7,45 @@
                     <i class="{{event.badgeIconClass}}"></i>
                 </timeline-badge>
                 <timeline-panel class="{{event.badgeClass}}">
-                    <timeline-heading>
-                        <h4>{{event.title}}</h4>
+                    <span ng-if="event.type == 'auto'">
+                        <timeline-heading>
+                        <span style="width: 75%;">
+                            <h4 style="">{{event.title}}</h4>
+                            <span class="pull-right" ng-click="removeEvent(event)" style="float: right;"><i class="icon ion-trash-a"></i></span>
+                    </span>
                     </timeline-heading>
                     <p ng-bind-html="event.content"></p>
-                    <p ng-if="event.action" ng-click="event.action.event()">{{event.action.name}}</p>
+                    </span>
+                    <span ng-if="event.type == 'text'">
+                        <timeline-heading>
+                        <span style="width: 75%;">
+                            <input ng-model="event.title" placeholder="title"/>
+                            <span class="pull-right" ng-click="removeEvent(event)" style="float: right;"><i class="icon ion-trash-a"></i></span>
+                    </span>
+                    </timeline-heading>
+                    <p>
+                        <textarea ng-model="event.content" rows="2" placeholder="content"></textarea>
+                    </p>
+                    </span>
+                    <span ng-if="event.type == 'picture'">
+                        <timeline-heading>
+                        <span style="width: 75%;">
+                            <h4>{{event.title}}</h4>
+                            <span class="pull-right" ng-click="removeEvent(event)" style="float: right;"><i class="icon ion-trash-a"></i></span>
+                    </span>
+                    </timeline-heading>
+                    <p>
+                        <a class="button button-small button-positive" ng-if="!event.picture" ng-click="clickPicture(event)">Click Pic</a>
+                        <img ng-if="event.picture" ng-src="{{event.picture}}" style="max-height : 150px; max-width : 150px">
+                    </p>
+                    </span>
                 </timeline-panel>
             </timeline-event>
         </timeline>
     </ion-content>
+    <div class="bar bar-footer bar-positive">
+        <button class="button button-clear" ng-click="addTextEvent()">Text</button>
+        <div class="title"></div>
+        <button class="button button-clear" ng-click="addPictureEvent('Here\'s my #OlaStory')">Picture</button>
+    </div>
 </ion-view>
