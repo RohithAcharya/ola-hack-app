@@ -1,15 +1,53 @@
 <ion-view view-title="Places">
-    <ion-content>
-    <div>
-    	Lat : {{geolocation.latitude}} , Long : {{geolocation.longitude}}
-    </div>
-        <ion-list>
-            <div class="item item-button-right" ng-repeat="place in places" href="#/app/places/{{place.id}}">
-                {{place.name}}
-                <button class="button button-positive">
-                    <i class="icon ion-ios-telephone"></i>
-                </button>
-            </div>
-        </ion-list>
-    </ion-content>
+    <ion-pane class="content-gray">
+        <ion-header-bar class="bar-transparent">
+            <h1 class="title">Places</h1>
+        </ion-header-bar>
+        <swipe-cards>
+            <swipe-card on-card-swipe="cardSwiped()" id="start-card">
+                Swipe down to discover personalized locations
+            </swipe-card>
+            <swipe-card ng-repeat="card in places" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
+                <div class="item item-avatar">
+                    <img src="{{card.icon}}">
+                    <h2>{{card.name}}</h2>
+                    <p>
+                        <span ng-if="card.distance">
+                            <i class="ion-ios-navigate-outline"></i> {{card.distance}}km,
+                        </span>
+                        <span ng-if="card.travel_time_in_minutes">
+                            <i class="ion-android-time"></i> {{card.travel_time_in_minutes}} mins    
+                        </span>
+                    </p>
+                </div>
+                <div class="item item-body">
+                    <img class="full-image" src="img/place-holder-1.png">
+                    <p>
+                        <strong> This is going to be about the place </strong>
+                        You are seeing this because : you are curious
+                    </p>
+                    <p>
+                        <span class="subdued" ng-if="card.amount_min && card.amount_max">
+                        Fare Estimate : Rs.{{card.amount_min}} - Rs.{{card.amount_max}}
+                    </span>
+                    <span class="subdued" ng-if="!(card.amount_min && card.amount_max)">&nbsp;</span>
+                    </p>
+                </div>
+                <!-- <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-thumbsup"></i> Like
+                    </a>
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-chatbox"></i> Comment
+                    </a>
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-share"></i> Share
+                    </a>
+                </div> -->
+                <a class="item item-icon-left positive" ng-click="bookCab(card)">
+                    <i class="icon ion-model-s"></i> Book Now <span style="color:gray" ng-if="cabEta">({{cabEta}} mins away)</span>
+                </a>
+            </swipe-card>
+        </swipe-cards>
+    </ion-pane>
 </ion-view>
