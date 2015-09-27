@@ -1,25 +1,41 @@
 function PlacesCtrl($rootScope, $scope, $ionicLoading, $ionicPlatform, $q, $timeout, $cordovaGeolocation, apiService, userService, $state) {
+    var loaderTemplate = "Loading..."
+    $scope.$on('show-loader', function(){
+        $ionicLoading.show({
+            template: loaderTemplate
+        });
+    })
+    $scope.$on('hide-loader', function(){
+        $ionicLoading.hide();
+    })
+
     $scope.$on('$ionicView.enter', function(e) {
-        var positionPromise = getCurrentPosition()
-            .then(function() {
-                userService.geolocation = $scope.geolocation;
-                return apiService.getPlaces($scope.geolocation);
+        $scope.$broadcast('show-loader');
+        var positionPromise = userService.getCurrentPosition()
+            .then(function(geo) {
+                userService.geolocation = geo;
+                return apiService.getPlaces(userService.geolocation);
             })
-            .then(getPlacesSuccessHandler, getPlacesErrorHandler);
+            .then(getPlacesSuccessHandler, getPlacesErrorHandler).finally(function() {
+                $scope.$broadcast('hide-loader');
+            });
     });
 
     $rootScope.$on('user-logged-in', function(event, args) {
         var text = getUserText(userService.user)
-        apiService.getPlaces($scope.geolocation, text).then(getPlacesSuccessHandler, getPlacesErrorHandler);
+        $scope.$broadcast('show-loader');
+        apiService.getPlaces(userService.geolocation, text).then(getPlacesSuccessHandler, getPlacesErrorHandler).finally(function() {
+            $scope.$broadcast('hide-loader');
+        });
     });
 
     $scope.places = [];
     $scope.cabEta = "";
-    $scope.geolocation = {};
     $scope.userRef = userService;
     $scope.bookCab = bookCab;
 
     function bookCab(place) {
+        $scope.$broadcast('show-loader');
         apiService.bookCab(userService.geolocation)
             .then(function(response) {
                 // booking success
@@ -30,6 +46,8 @@ function PlacesCtrl($rootScope, $scope, $ionicLoading, $ionicPlatform, $q, $time
             }, function(response) {
                 // booking error
                 alert('damn nigga, booking error!');
+            }).finally(function(){
+                $scope.$broadcast('hide-loader');
             })
     }
 
@@ -62,24 +80,5 @@ function PlacesCtrl($rootScope, $scope, $ionicLoading, $ionicPlatform, $q, $time
         return combined;
     }
 
-    function getCurrentPosition() {
-        var positionDeferred = $q.defer();
-        $ionicPlatform.ready(function() {
-            $timeout(function() {
-                // ONLY EGL LOCATION WILL WORK
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    $scope.geolocation = {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                    };
-                    positionDeferred.resolve('geolocation ready');
-                }, function(response) {
-                    alert('geolocation error');
-                    console.log(response);
-                })
-            }, 100);
-        });
 
-        return positionDeferred.promise;
-    }
 }
