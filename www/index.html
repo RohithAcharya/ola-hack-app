@@ -7,6 +7,8 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/angular-timeline/angular-timeline.css"/>
+    <link rel="stylesheet" href="lib/angular-timeline/angular-timeline-animations.css"/>
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -18,16 +20,22 @@
     <script src="lib/ng-cordova.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script src="lib/angular-timeline/angular-timeline.js"></script>
+    <script type="text/javascript" src="lib/ionic.swipecards.js"></script>
 
     <!-- your app's js -->
     <script src="js/controllers/AppCtrl.js"></script>
     <script src="js/controllers/PlacesCtrl.js"></script>
+    <script src="js/controllers/TimelineCtrl.js"></script>
 
     <script src="js/services/ApiService.js"></script>
+    <script src="js/services/UserService.js"></script>
+    <script src="js/utils/LocalStorage.js"></script>
 
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+    <script src="js/utils.js"></script>
   </head>
 
   <body ng-app="ola">
