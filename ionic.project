@@ -1,11 +1,22 @@
 {
-    "name": "ola-surprise-me",
-    "app_id": "",
-    "proxies": [{
-        "path": "/get_locations",
-        "proxyUrl": "http://test-387dcco7.cloudapp.net/v1/ola/get_locations"
-    },{
-    "path": "/book_cab",
-        "proxyUrl": "http://test-387dcco7.cloudapp.net/v1/ola/book_cab"
-    }]
+  "name": "ola-surprise-me",
+  "app_id": "d2bfb812",
+  "proxies": [
+    {
+      "path": "/get_locations",
+      "proxyUrl": "http://ola-83r8k6yq.cloudapp.net/v1/ola/get_locations"
+    },
+    {
+      "path": "/book_cab",
+      "proxyUrl": "http://ola-83r8k6yq.cloudapp.net/v1/ola/book_cab"
+    },
+    {
+      "path": "/explore_locations",
+      "proxyUrl": "http://ola-83r8k6yq.cloudapp.net/v1/ola/explore_locations"
+    },
+    {
+      "path": "/explore_book_cab",
+      "proxyUrl": "http://ola-83r8k6yq.cloudapp.net/v1/ola/explore_book_cab"
+    }
+  ]
 }
