@@ -1,0 +1,19 @@
+<ion-view view-title="Timeline">
+    <ion-content class="padding">
+        <!-- <h1>This is going to be the timeline</h1> -->
+        <timeline>
+            <timeline-event ng-repeat="event in events">
+                <timeline-badge class="{{event.badgeClass}}">
+                    <i class="{{event.badgeIconClass}}"></i>
+                </timeline-badge>
+                <timeline-panel class="{{event.badgeClass}}">
+                    <timeline-heading>
+                        <h4>{{event.title}}</h4>
+                    </timeline-heading>
+                    <p ng-bind-html="event.content"></p>
+                    <p ng-if="event.action" ng-click="event.action.event()">{{event.action.name}}</p>
+                </timeline-panel>
+            </timeline-event>
+        </timeline>
+    </ion-content>
+</ion-view>
