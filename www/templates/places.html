@@ -1,4 +1,4 @@
-<ion-view view-title="Places">
+<ion-view view-title="Surprise Me">
     <ion-pane class="content-gray">
         <ion-header-bar class="bar-transparent">
             <h1 class="title">Places</h1>
@@ -9,7 +9,7 @@
             </swipe-card>
             <swipe-card ng-repeat="card in places" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
                 <div class="item item-avatar">
-                    <img src="{{card.icon}}">
+                    <img ng-if="card.icon" src="{{card.icon}}" class="location-pin">
                     <h2>{{card.name}}</h2>
                     <p>
                         <span ng-if="card.distance">
@@ -21,29 +21,21 @@
                     </p>
                 </div>
                 <div class="item item-body">
-                    <img class="full-image" src="img/place-holder-1.png">
+                    <!-- <img class="full-image" src="img/place-holder-1.png"> -->
+                    <img class="full-image" ng-src="{{card.photo_url || 'img/place-holder-1.png'}}">
                     <p>
-                        <strong> This is going to be about the place </strong>
-                        You are seeing this because : you are curious
+                        <!-- <strong> {{card.description}} </strong> -->
+                        <strong>You are seeing this suggestion because :</strong> {{card.suggestion_reason.join(", ") || "It's a popular destination near your current location"}}
                     </p>
                     <p>
                         <span class="subdued" ng-if="card.amount_min && card.amount_max">
                         Fare Estimate : Rs.{{card.amount_min}} - Rs.{{card.amount_max}}
                     </span>
+                    <span ng-if="!(card.amount_min && card.amount_max)">&nbsp;</span>
                     <span class="subdued" ng-if="!(card.amount_min && card.amount_max)">&nbsp;</span>
+                    
                     </p>
                 </div>
-                <!-- <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item" href="#">
-                        <i class="icon ion-thumbsup"></i> Like
-                    </a>
-                    <a class="tab-item" href="#">
-                        <i class="icon ion-chatbox"></i> Comment
-                    </a>
-                    <a class="tab-item" href="#">
-                        <i class="icon ion-share"></i> Share
-                    </a>
-                </div> -->
                 <a class="item item-icon-left positive" ng-click="bookCab(card)">
                     <i class="icon ion-model-s"></i> Book Now <span style="color:gray" ng-if="cabEta">({{cabEta}} mins away)</span>
                 </a>
