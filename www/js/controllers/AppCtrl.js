@@ -1,6 +1,6 @@
-function AppCtrl($scope, $ionicModal, $timeout, apiService) {
+function AppCtrl($rootScope, $scope, $ionicModal, $timeout, $localStorage, apiService, userService) {
     $scope.$on('$ionicView.enter', function(e) {
-        console.log('$ionicView.enter');
+
     });
 
     // Form data for the login modal
@@ -27,13 +27,28 @@ function AppCtrl($scope, $ionicModal, $timeout, apiService) {
     // Perform the login action when the user submits the login form
     $scope.doLogin = function() {
         console.log('Doing login', $scope.loginData);
-        apiService.facebookLogin();
-        // Simulate a login delay. Remove this and replace with your login
-        // code if using a login system
-        // $timeout(function() {
-        //     $scope.closeLogin();
-        // }, 1000);
-
+        apiService.facebookLogin()
+            .then(function(response) {
+                //oauth success
+                userService.token = response.access_token;
+                return apiService.getUserInfo(userService.token);
+            }, function(response) {
+                //oauth error
+                alert('damn nigga, oauth fail');
+            })
+            .then(function(response) {
+                // user info success                
+                userService.user = response.data;
+                $rootScope.$emit('user-logged-in');                
+            }, function(response) {
+                // user info error
+                alert('damn nigga, user info fail');
+                console.log(response);
+            }).finally(function() {
+                $timeout(function() {
+                    $scope.closeLogin();
+                }, 300);
+            });
     };
 
 }
